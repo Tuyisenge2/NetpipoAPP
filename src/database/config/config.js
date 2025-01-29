@@ -12,6 +12,7 @@ module.exports = {
 	development: {
 		url: process.env.DB_DEV_URL,
 		dialectOptions: dialect_option,
+		
 	},
 	test: {
 		url: process.env.DB_TEST_URL,

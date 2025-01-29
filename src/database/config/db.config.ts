@@ -56,7 +56,7 @@ export const connectionToDatabase = async () => {
 const db_models = Models(sequelizeConnection);
 
 Object.keys(db_models).forEach((key) => {
-  // @ts-expect-error ignore expected errors
+  // @ts-expect-error ignore ejxpected errors
   if (db_models[key].associate) {
     // @ts-expect-error ignore expected errors
     db_models[key].associate(db_models);

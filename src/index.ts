@@ -1,8 +1,10 @@
 import app from "./app";
 import * as http from "http";
+import { connectionToDatabase } from "./database/config/db.config";
 
 export const PORT = process.env.PORT;
 const startServer = async () => {
+	await connectionToDatabase();
 
 	const server = http.createServer(app);
 
