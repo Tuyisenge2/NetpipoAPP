@@ -3,8 +3,7 @@ import database_models from "../config/db.config";
 import { roleCreationAttributes, roleModelAttributes } from "../../types/model";
 
 export class Role extends Model<roleModelAttributes, roleCreationAttributes> {
-	public static associate(models: { User: typeof database_models.User }) {
-		Role.hasMany(models.User, { as: "Users", foreignKey: "role" });
+	public static associate() {
 	}
 }
 const Role_model = (sequelize: Sequelize) => {

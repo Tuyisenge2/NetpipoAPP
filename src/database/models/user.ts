@@ -8,13 +8,8 @@ export class User extends Model<UserModelAttributes, UserCreationAttributes> {
   public position!: string;
   public salary!: Number;
   public email!: string;
-  public role!: string;
 
-  public static associate(models: {
-    role: typeof database_models.role;
-  }) {
-    User.belongsTo(models.role, { as: "Roles", foreignKey: "role" });
-  }
+  public static associate() {}
 }
 
 const user_model = (sequelize: Sequelize) => {
@@ -43,15 +38,6 @@ const user_model = (sequelize: Sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      role: {
-        type: DataTypes.UUID,
-        defaultValue: UUIDV4,
-        allowNull: false,
-        references: {
-          model: "roles",
-          key: "id",
-        },
-      }
     },
     {
       sequelize,
