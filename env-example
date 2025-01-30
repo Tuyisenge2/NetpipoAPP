@@ -1,0 +1,27 @@
+# Server Configuration
+PORT=5000                     # The port number where the server will run
+
+# Database Configuration
+DB_NAME=your_database_name     # The name of your PostgreSQL database
+DB_HOST=localhost              # The host where your database is running (use localhost for local development)
+DB_USER=your_database_user     # The username to connect to your database
+#DB_PASSWORD=your_password     # Uncomment and provide the password if needed
+POSTGRES_PASSWORD=your_password # The password for PostgreSQL (if applicable)
+DB_DIALECT=postgres            # Database dialect used by Sequelize (keep it as 'postgres')
+
+# Database URLs for different environments
+DB_DEV_URL=postgres://user:password@localhost:5432/dev_db   # Connection URL for development database
+DB_TEST_URL=postgres://user:password@localhost:5432/test_db # Connection URL for testing database
+DB_PROD_URL=postgres://user:password@remote_host:5432/prod_db # Connection URL for production database
+
+# Application Mode
+DEV_MODE=development               # Set to true for development mode
+#DEV_MODE=false               # Uncomment and set to false if running in production mode
+DB_HOSTED_MODE=local        # Set to local for local database
+
+# Authentication and Security
+ACCESS_TOKEN_SECRET=your_secret_key  # Secret key used to sign JWT tokens
+
+# Application URLs
+SERVER_URL=http://localhost:5000    # The base URL of the local server
+DEPLOYED_URL=https://your-deployed-app.com  # The URL of the deployed application
