@@ -1,16 +1,17 @@
 
 import express from "express";
-import  employeeController  from "../controller/employeeController"; // Adjust path as needed
+import  employeeController  from "../controller/employeeController";
+import AuthMiddleware from "../middleware/authentication"
 
 const userRoutes = express.Router();
-
 const userController = new employeeController();
+const AuthMiddle  = new AuthMiddleware();
 
-userRoutes.get("/", (req, res) => userController.getEmployees(req, res) as any);
-userRoutes.get("/:id", (req, res) => userController.getOneEmployee(req, res) as any);
-userRoutes.post("/", (req, res) => userController.createEmployee(req, res) as any);
-userRoutes.put("/:id", (req, res) => userController.updateEmployee(req, res) as any);
-userRoutes.delete("/:id", (req, res) => userController.deleteEmployee(req, res) as any);
+userRoutes.get("/", userController.getEmployees as any);
+userRoutes.get("/:id", userController.getOneEmployee as any);
+userRoutes.post("/", AuthMiddle.authenticateUser as any , userController.createEmployee as any);
+userRoutes.put("/:id",AuthMiddle.authenticateUser as any ,  userController.updateEmployee as any);
+userRoutes.delete("/:id",AuthMiddle.authenticateUser as any , userController.deleteEmployee as any);
 
 
 
