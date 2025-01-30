@@ -1,23 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../database/models/user";
+import { ExpandedRequest } from "../middleware/authentication";
 
-// export const  allUsers = async(req: Request, res: Response) => {
-//   try {
-//     const users = await User.findAll();
-//     return res.json({
-//       status: 200,
-//       message: "Account Created successfully, Please Verify your Account",
-//       users,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       status: "SERVER ERROR",
-//       message: "Something went wrong!",
-//     });
-//   }
-// }
-
-// export default class userController{
 
 
 export default class employeeController {
@@ -40,11 +24,11 @@ export default class employeeController {
   }
 
   //get single employee
-  public async getOneEmployee(req: Request, res: Response) {
+  public async getOneEmployee(req: ExpandedRequest, res: Response) {
     const { id } = req.params;
 
     try {
-      const employee = await User.findByPk(id);
+      const employee =  req.user;
       return res.json({
         status: 200,
         message: "Employee fetched successfully",
@@ -62,7 +46,7 @@ export default class employeeController {
 
   // Create a new employee
   public async createEmployee(req: Request, res: Response) {
-    const { name, email, position, salary, role } = req.body;
+    const { name, email, position, salary } = req.body;
 
     try {
       const newEmployee = await User.create({
@@ -71,8 +55,6 @@ export default class employeeController {
         position,
         salary,
       });
-
-
       return res.status(201).json({
         status: 201,
         message: "Employee created successfully",
@@ -88,20 +70,13 @@ export default class employeeController {
   }
 
   // Update an existing employee
-  public async updateEmployee(req: Request, res: Response) {
+  public async updateEmployee(req: ExpandedRequest, res: Response) {
     const { id } = req.params;
-    const { name, email, position, salary, role } = req.body;
+    const { name, email, position, salary } = req.body;
 
     try {
-      const employee = await User.findByPk(id);
-
-      if (!employee) {
-        return res.status(404).json({
-          status: 404,
-          message: "Employee not found",
-        });
-      }
-
+    
+      const employee = req.user;
       employee.name = name || employee.name;
       employee.email = email || employee.email;
       employee.position = position || employee.position;
@@ -124,18 +99,12 @@ export default class employeeController {
   }
 
   // Delete an employee
-  public async deleteEmployee(req: Request, res: Response) {
+  public async deleteEmployee(req: ExpandedRequest, res: Response) {
     const { id } = req.params;
 
     try {
-      const employee = await User.findByPk(id);
-      if (!employee) {
-        return res.status(404).json({
-          status: 404,
-          message: "Employee not found",
-        });
-      }
-
+      const employee = req.user;
+    
       await employee.destroy();
 
       return res.json({
