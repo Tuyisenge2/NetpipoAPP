@@ -23,6 +23,7 @@ userRoutes.put(
   "/:id",
   AuthMiddle.authenticateUser as any,
   validData.validateId as any,
+  validData.validateDataUser as any,
   AuthMiddle.userExistbyId as any,
   userController.updateEmployee as any
 );
